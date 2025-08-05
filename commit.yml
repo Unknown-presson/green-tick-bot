@@ -1,0 +1,26 @@
+name: Green Tick Daily
+
+on:
+  schedule:
+    - cron: '0 6 * * *'  # Daily 6 AM (UTC)
+  workflow_dispatch:      # Optional: run manually if needed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set Git user
+      run: |
+        git config user.name "Badal Singh"
+        git config user.email "your-email@example.com"
+
+    - name: Make daily commit
+      run: |
+        echo "✅ Daily update on $(date)" >> activity.log
+        git add activity.log
+        git commit -m "Daily contribution on $(date)"
+        git push
